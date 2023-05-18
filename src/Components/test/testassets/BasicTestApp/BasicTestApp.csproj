@@ -40,9 +40,16 @@
     <EmbeddedResource Update="Resources.resx" GenerateSource="true" />
   </ItemGroup>
 
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net8.0'">
+      <WebcilInWasmExtension>.wasm</WebcilInWasmExtension>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)' != 'net8.0'">
+      <WebcilInWasmExtension>.dll</WebcilInWasmExtension>
+  </PropertyGroup>
+
   <ItemGroup>
-    <BlazorWebAssemblyLazyLoad Include="Newtonsoft.Json.dll" />
-    <BlazorWebAssemblyLazyLoad Include="LazyTestContentPackage.dll" />
+    <BlazorWebAssemblyLazyLoad Include="Newtonsoft.Json$(WebcilInWasmExtension)" />
+    <BlazorWebAssemblyLazyLoad Include="LazyTestContentPackage$(WebcilInWasmExtension)" />
   </ItemGroup>
 
   <!-- Workaround for https://github.com/dotnet/aspnetcore/issues/30791 -->
